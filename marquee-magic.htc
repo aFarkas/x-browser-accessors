@@ -1,0 +1,14 @@
+<PUBLIC:COMPONENT lightWeight="true">
+
+<PUBLIC:PROPERTY NAME="magic" PUT="set" GET="get" />
+
+
+<SCRIPT>
+var get = function(){
+	 return webshims.extendedProps.marquee.magic.get(element);
+};
+var set = function(value){
+	return webshims.extendedProps.marquee.magic.set(element, value);
+};
+</SCRIPT>
+</PUBLIC:COMPONENT>

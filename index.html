@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cross Browser DOM-Accessors (Setters/Getters) - even in IE6/7</title>
+		
+		<style>
+			body {
+				margin: auto;
+				width: 800px;
+				font: 100.1% arial, helvetica, sans-serif;
+			}
+			textarea {
+				display: block;
+				width: 800px;
+				height: 100px;
+				border: 1px solid #666;
+			}
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		
+		<script src="webshim.js"></script>
+		<script>
+			webshims.defineNodeNameProperty('marquee', 'magic', {
+				set: function(value){
+					alert('setter: marquee.magic will be set to "'+ value +'"');
+					$(this).data('magic', value);
+				},
+				get: function(){
+					var value = $(this).data('magic');
+					alert('getter: the value of marquee.magic is "'+ value +'"');
+					return value;
+				}
+			},
+			'marquee-magic');
+		</script>
+	</head>
+	<body>
+		<h1>Cross Browser DOM-Accessors (Setters/Getters) - even in IE6/7</h1>
+		<marquee>Try to set/get the magic property on this marquee element</marquee>
+		<p>The script uses a mixture of Object.defineProperty, Object.prototype.__defineGetter__ and DHTML behavior (htc) to create cross browser DOM-Accessors.</p>
+		<p>It implements a new property on marquee-elements called 'magic'</p>
+		<p>Run the following code in your browser</p>
+		
+<textarea>
+var marquee = document.getElementsByTagName('marquee')[0];
+//setter
+marquee.magic = 'yes it works';
+
+//getter
+//marquee.magic
+</textarea>
+<button>eval textarea</button>
+<script>
+	$('button').click(function(){
+		eval( $('textarea').attr('value') );
+		return false;
+	});
+</script>
+<p>Note: If this does not work in IE8- for you. You should ensure, that htc-files are served with the following mime-type: <code>text/x-component</code></p>
+<p>This serves as a proof of concept for the next big release of <a href="http://afarkas.github.com/webshim/demos/index.html">webshims lib 2.0</a>.</p>
+	</body>
+</html>
